@@ -10,7 +10,6 @@ import { OwnerService } from '../../services/owner/owner.service';
 export class Page1Component implements OnInit {
 
   name: string;
-  lang: string;
 
   constructor(
     private ownerService: OwnerService, 

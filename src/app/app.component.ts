@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from 'src/environments/environment';
+import { OwnerService } from './services/owner/owner.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {
 
   constructor(
+    private ownerService: OwnerService,
     private translateService: TranslateService,
   ) { }
 

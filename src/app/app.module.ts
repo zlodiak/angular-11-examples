@@ -2,6 +2,11 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule }   from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
+import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +17,16 @@ import { SigninComponent } from './components/signin/signin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { appInitializer } from './helpers/app.initializer';
 import { OwnerService } from './services/owner/owner.service';
+
+export class MissingTranslationService implements MissingTranslationHandler {
+  handle(params: MissingTranslationHandlerParams) {
+    return `WARN: '${params.key}' is missing in '${params.translateService.currentLang}' locale`;
+  }
+}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
+  return new TranslateHttpLoader(http, './assets/locale/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -26,7 +41,16 @@ import { OwnerService } from './services/owner/owner.service';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
+      useDefaultLang: false,
+    }),
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [OwnerService] },
@@ -34,3 +58,7 @@ import { OwnerService } from './services/owner/owner.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
+

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from 'src/environments/environment';
-import { GlobalService } from './services/global/global.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ import { GlobalService } from './services/global/global.service';
 export class AppComponent {
 
   constructor(
-    private globalService: GlobalService,
     private translateService: TranslateService,
   ) { }
 
@@ -21,7 +19,9 @@ export class AppComponent {
   }
 
   toggleLang() {
-    this.globalService.toggleLang()
+    const currentLang = this.translateService.currentLang;
+    const toggleLang = currentLang === 'en' ? 'ru' : 'en';
+    this.translateService.use(toggleLang);
   }
 
 }

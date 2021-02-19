@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { OwnerService } from '../../services/owner/owner.service';
-import { GlobalService } from '../../services/global/global.service';
 
 @Component({
   selector: 'app-page1',
@@ -15,12 +14,10 @@ export class Page1Component implements OnInit {
 
   constructor(
     private ownerService: OwnerService, 
-    private globalService: GlobalService
   ) { }
 
   ngOnInit(): void {
     this.name = this.ownerService.getOwners()[1];
-    this.globalService.lang.subscribe(lang => this.lang = lang);
   }
 
 }

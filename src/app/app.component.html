@@ -1,7 +1,12 @@
-<nav>
-  <a routerLink="/page1">page1</a>
-  <a routerLink="/page2">page2</a>
-  <a routerLink="/page3">page3</a>
-</nav>
+<header>
+  <nav>
+    <a routerLink="/page1">page1</a>
+    <a routerLink="/page2">page2</a>
+    <a routerLink="/page3">page3</a>
+  </nav>
+  <div>
+    <input type="checkbox" (change)="toggleLang()"> enable russian lang
+  </div>
+</header>
 
 <router-outlet></router-outlet>

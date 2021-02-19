@@ -13,6 +13,7 @@ export class AuthCheckGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const isLoggend = window.localStorage.getItem('isLogged');
+      return true;  // TODO: delete this
       if(isLoggend === 'true') { return true; }
       return this.router.parseUrl('/signin');
   }

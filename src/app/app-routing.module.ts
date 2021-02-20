@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthCheckGuard } from './auth-check.guard';
+import { AuthCheckGuard } from './guards/auth-check.guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 import { Page1Component } from './components/page1/page1.component';

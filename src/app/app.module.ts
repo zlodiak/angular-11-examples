@@ -20,6 +20,7 @@ import { appInitializer } from './helpers/app.initializer';
 import { OwnerService } from './services/owner/owner.service';
 import { WelcomeResolver } from './components/resolvers/welcomeResolver';
 import { BearerInterceptor } from './interceptors/bearer.interceptor';
+import { FakeResponseInterceptor } from './interceptors/fake-response.interceptor';
 
 export class MissingTranslationService implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {
@@ -57,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: FakeResponseInterceptor, multi: true },
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [OwnerService] },
     WelcomeResolver,
   ],

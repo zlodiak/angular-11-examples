@@ -21,16 +21,21 @@ export class BearerInterceptor implements HttpInterceptor {
     });
 
     return next.handle(request).pipe(
-      tap((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          console.log('ok');
+      tap(
+        (event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            console.log('ok');
+          }
+        }, 
+        (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            console.log('error', err.status);
+          }
+        },
+        () => {
+          console.log('finally');
         }
-      }, 
-      (err: any) => {
-        if (err instanceof HttpErrorResponse) {
-          console.log('error', err.status);
-        }
-      })
+      )
     );
   }
 }

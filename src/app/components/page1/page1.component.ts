@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { OwnerService } from '../../services/owner/owner.service';
+import { GlobalService } from '../../services/global/global.service';
 
 @Component({
   selector: 'app-page1',
@@ -16,7 +17,10 @@ export class Page1Component implements OnInit {
   constructor(
     private ownerService: OwnerService, 
     private route: ActivatedRoute,
-  ) { }
+    private globalService: GlobalService,
+  ) {
+    this.globalService.setSpinnerState(false);
+  }
 
   ngOnInit(): void {
     this.name = this.ownerService.getOwners()[1];

@@ -1,8 +1,26 @@
 header {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 
-    a {
-        margin: 0 10px;
-    }
+  a {
+    margin: 0 10px;
+  }
+}
+
+.spinner-bg {
+  background-color: rgba(117, 190, 218, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  .spinner {
+    font-size: 200%;
+    font-weight: bold;
+  }
 }

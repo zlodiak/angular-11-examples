@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from 'src/environments/environment';
-import { OwnerService } from './services/owner/owner.service';
+import { GlobalService } from './services/global/global.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +11,18 @@ import { OwnerService } from './services/owner/owner.service';
 })
 export class AppComponent {
 
+  isShowSpinner: boolean;
+
   constructor(
-    private ownerService: OwnerService,
+    private globalService: GlobalService,
     private translateService: TranslateService,
   ) { }
 
   ngOnInit(): void {
     this.translateService.use(environment.defaultLocale);
+    this.globalService.spinner().subscribe((state: boolean) => {
+      this.isShowSpinner = state;
+    });
   }
 
   toggleLang() {

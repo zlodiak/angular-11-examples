@@ -1,27 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { environment } from 'src/environments/environment'; 
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
 
-  private welcomeText = '';
+  private isShowSpinner = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  fillOwners() {
-    this.http.get(environment.API_URL + '/welcome').subscribe(
-      (welcome: any) => {
-        this.welcomeText = welcome.text;
-        debugger
-      }
-    );
+  spinner() {
+    return this.isShowSpinner.asObservable();
   }
 
-  getWelcomeText() {
-    return this.welcomeText;
+  setSpinnerState(state: boolean) {
+    return this.isShowSpinner.next(state);
   }
 
 }

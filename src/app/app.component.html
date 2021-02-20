@@ -10,3 +10,7 @@
 </header>
 
 <router-outlet></router-outlet>
+
+<div class="spinner-bg" *ngIf="isShowSpinner">
+  <div class="spinner">Loading...</div>
+</div>

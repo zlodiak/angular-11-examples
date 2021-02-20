@@ -17,6 +17,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { appInitializer } from './helpers/app.initializer';
 import { OwnerService } from './services/owner/owner.service';
+import { WelcomeResolver } from './components/resolvers/welcomeResolver';
 
 export class MissingTranslationService implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [OwnerService] },
+    WelcomeResolver,
   ],
   bootstrap: [AppComponent]
 })

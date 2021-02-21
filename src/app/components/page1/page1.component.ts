@@ -18,9 +18,7 @@ export class Page1Component implements OnInit {
     private ownerService: OwnerService, 
     private route: ActivatedRoute,
     private globalService: GlobalService,
-  ) {
-    this.globalService.setSpinnerState(false);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.name = this.ownerService.getOwners()[1];

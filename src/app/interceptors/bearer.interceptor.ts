@@ -8,17 +8,22 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
+
+import { GlobalService } from '../services/global/global.service';
 
 @Injectable()
 export class BearerInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private globalService: GlobalService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    
     request = request.clone({
       setHeaders: { Authorization: `Bearer 123` }
     });
+
+    this.globalService.setSpinnerState(true);
 
     return next.handle(request).pipe(
       tap(
@@ -35,7 +40,8 @@ export class BearerInterceptor implements HttpInterceptor {
         () => {
           console.log('finally');
         }
-      )
+      ),
+      finalize(() => this.globalService.setSpinnerState(false)),
     );
   }
 }

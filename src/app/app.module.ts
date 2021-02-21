@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { Page1Component } from './components/page1/page1.component';
@@ -21,6 +22,7 @@ import { OwnerService } from './services/owner/owner.service';
 import { WelcomeResolver } from './components/resolvers/welcomeResolver';
 import { BearerInterceptor } from './interceptors/bearer.interceptor';
 import { FakeResponseInterceptor } from './interceptors/fake-response.interceptor';
+import { counterReducer } from './store/reducers/reducer';
 
 export class MissingTranslationService implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {
@@ -55,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
       useDefaultLang: false,
     }),
+    StoreModule.forRoot({ count: counterReducer }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true },

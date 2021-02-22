@@ -22,7 +22,9 @@ import { OwnerService } from './services/owner/owner.service';
 import { WelcomeResolver } from './components/resolvers/welcomeResolver';
 import { BearerInterceptor } from './interceptors/bearer.interceptor';
 import { FakeResponseInterceptor } from './interceptors/fake-response.interceptor';
-import { counterReducer } from './store/reducers/reducer';
+import { booksReducer, collectionReducer, counterReducer } from './store/reducers/reducer';
+import { BookListComponent } from './components/book-list/book-list.component';
+import { BookCollectionComponent } from './components/book-collection/book-collection.component';
 
 export class MissingTranslationService implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {
@@ -41,7 +43,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     Page2Component,
     Page3Component,
     SigninComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BookListComponent,
+    BookCollectionComponent
   ],
   imports: [
     HttpClientModule,
@@ -57,7 +61,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
       useDefaultLang: false,
     }),
-    StoreModule.forRoot({ count: counterReducer }),
+    StoreModule.forRoot({ 
+      count: counterReducer,
+      books: booksReducer, 
+      collection: collectionReducer,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true },
